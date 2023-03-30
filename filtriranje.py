@@ -22,16 +22,13 @@ def convolve(image, kernel):
 
     return output
 
-
-
 def my_roberts(image):
     roberts_kernel_x = np.array([[1, 0], [0, -1]], dtype=np.float32)
     roberts_kernel_y = np.array([[0, 1], [-1, 0]], dtype=np.float32)
     gradient_x = convolve(image, roberts_kernel_x)
     gradient_y = convolve(image, roberts_kernel_y)
-    magnitude = np.sqrt(np.power(gradient_x, 2) + np.power(gradient_y, 2)).astype(np.uint8)
-    return magnitude
-
+    output = np.sqrt(np.power(gradient_x, 2) + np.power(gradient_y, 2)).astype(np.uint8)
+    return output
 
 def my_prewitt(image):
     prewitt_kernel_x = np.array([[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]], dtype=np.float32)
@@ -46,16 +43,16 @@ def my_prewitt(image):
 def my_sobel(image):
     sobel_kernel_x = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], dtype=np.float32)
     sobel_kernel_y = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]], dtype=np.float32)
-    gradient_x = cv2.filter2D(image, -1, sobel_kernel_x)
-    gradient_y = cv2.filter2D(image, -1, sobel_kernel_y)
+    gradient_x = convolve(image, sobel_kernel_x)
+    gradient_y = convolve(image, sobel_kernel_y)
     output=np.sqrt(np.power(gradient_x, 2) + np.power(gradient_y, 2)).astype(np.uint8)
     return output
 
 
 
-def canny(slika, sp_prag, zg_prag):
-    #vaša implementacija
-    return slika_robov 
+def canny(image, lower_threshold, higher_threshold):
+    edges = cv2.Canny(image, lower_threshold, higher_threshold)
+    return edges
 
 def spremeni_kontrast(slika, alfa, beta):
     pass
@@ -77,6 +74,9 @@ sobel = my_sobel(imgGray)
 cv2.namedWindow("my_sobel")
 cv2.imshow("my_sobel", sobel)
 
+can = canny(imgGray,100,200)
+cv2.namedWindow("canny")
+cv2.imshow("canny", can)
 
 cv2.waitKey()
 cv2.destroyAllWindows()
