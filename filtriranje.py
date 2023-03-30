@@ -54,11 +54,18 @@ def canny(image, lower_threshold, higher_threshold):
     edges = cv2.Canny(image, lower_threshold, higher_threshold)
     return edges
 
-def spremeni_kontrast(slika, alfa, beta):
-    pass
+def spremeni_kontrast(image, alpha, beta):
+    adjusted = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
+    return adjusted
 
 
-imgGray = cv2.imread('lenna.png',0)
+
+
+imgGray2 = cv2.imread('lenna.png',0)
+cv2.namedWindow("Slika2")
+cv2.imshow("Slika2", imgGray2)
+
+imgGray=spremeni_kontrast(imgGray2,1.2,50)
 cv2.namedWindow("Slika")
 cv2.imshow("Slika", imgGray)
 
