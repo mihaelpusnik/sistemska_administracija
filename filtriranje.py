@@ -34,8 +34,12 @@ def my_roberts(image):
 
 
 def my_prewitt(image):
-    
-    return slika_robov
+    prewitt_kernel_x = np.array([[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]], dtype=np.float32)
+    prewitt_kernel_y = np.array([[-1, -1, -1], [0, 0, 0], [1, 1, 1]], dtype=np.float32)
+    gradient_x = convolve(image, prewitt_kernel_x)
+    gradient_y = convolve(image, prewitt_kernel_y)
+    output=np.sqrt(np.power(gradient_x, 2) + np.power(gradient_y, 2)).astype(np.uint8)
+    return output
 
 
 
