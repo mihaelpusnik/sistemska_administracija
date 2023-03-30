@@ -25,17 +25,24 @@ def convolve(image, kernel):
 
 
 def my_roberts(image):
+    roberts_kernel_x = np.array([[1, 0], [0, -1]], dtype=np.float32)
+    roberts_kernel_y = np.array([[0, 1], [-1, 0]], dtype=np.float32)
+    gradient_x = convolve(image, roberts_kernel_x)
+    gradient_y = convolve(image, roberts_kernel_y)
+    magnitude = np.sqrt(np.power(gradient_x, 2) + np.power(gradient_y, 2)).astype(np.uint8)
+    return magnitude
+
+
+def my_prewitt(image):
     
     return slika_robov
 
 
-def my_prewitt(slika):
-    #vaša implementacija
-    return slika_robov 
 
-def my_sobel(slika):
-    #vaša implementacija
-    return slika_robov 
+def my_sobel(image):
+    
+    return slika_robov
+
 
 def canny(slika, sp_prag, zg_prag):
     #vaša implementacija
@@ -48,8 +55,16 @@ def spremeni_kontrast(slika, alfa, beta):
 imgGray = cv2.imread('lenna.png',0)
 cv2.namedWindow("Slika")
 cv2.imshow("Slika", imgGray)
-img = my_roberts(imgGray)
-cv2.namedWindow("Slika2")
-cv2.imshow("Slika2", img)
+
+roberts = my_roberts(imgGray)
+cv2.namedWindow("my_roberts")
+cv2.imshow("my_roberts", roberts)
+
+prewitt = my_roberts(imgGray)
+cv2.namedWindow("my_prewitt")
+cv2.imshow("my_prewitt", prewitt)
+
+
+
 cv2.waitKey()
 cv2.destroyAllWindows()
