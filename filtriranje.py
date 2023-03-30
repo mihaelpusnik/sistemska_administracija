@@ -58,7 +58,9 @@ def spremeni_kontrast(image, alpha, beta):
     adjusted = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
     return adjusted
 
-
+def spremeni_kontrast2(image, alpha, beta):
+    adjusted = np.clip(alpha * image + beta, 0, 255).astype(np.uint8)
+    return adjusted
 
 
 imgGray2 = cv2.imread('lenna.png',0)
