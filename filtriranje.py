@@ -44,8 +44,13 @@ def my_prewitt(image):
 
 
 def my_sobel(image):
-    
-    return slika_robov
+    sobel_kernel_x = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], dtype=np.float32)
+    sobel_kernel_y = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]], dtype=np.float32)
+    gradient_x = cv2.filter2D(image, -1, sobel_kernel_x)
+    gradient_y = cv2.filter2D(image, -1, sobel_kernel_y)
+    output=np.sqrt(np.power(gradient_x, 2) + np.power(gradient_y, 2)).astype(np.uint8)
+    return output
+
 
 
 def canny(slika, sp_prag, zg_prag):
@@ -64,10 +69,13 @@ roberts = my_roberts(imgGray)
 cv2.namedWindow("my_roberts")
 cv2.imshow("my_roberts", roberts)
 
-prewitt = my_roberts(imgGray)
+prewitt = my_prewitt(imgGray)
 cv2.namedWindow("my_prewitt")
 cv2.imshow("my_prewitt", prewitt)
 
+sobel = my_sobel(imgGray)
+cv2.namedWindow("my_sobel")
+cv2.imshow("my_sobel", sobel)
 
 
 cv2.waitKey()
