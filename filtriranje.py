@@ -73,16 +73,12 @@ imgGray2 = cv2.imread('lenna.png',0)
 cv2.namedWindow("Slika2")
 cv2.imshow("Slika2", imgGray2)
 
-
 gauss = cv2.GaussianBlur(imgGray2,(15,15),1)
 imgGray = cv2.hconcat((imgGray2,gauss))
-
 
 #imgGray=spremeni_kontrast(imgGray2,1.2,-50)
 cv2.namedWindow("Slika")
 cv2.imshow("Slika", imgGray)
-
-
 
 
 roberts = my_roberts(imgGray)
