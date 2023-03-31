@@ -46,6 +46,7 @@ def my_sobel(image):
     gradient_x = convolve(image, sobel_kernel_x)
     gradient_y = convolve(image, sobel_kernel_y)
     output=np.sqrt(np.power(gradient_x, 2) + np.power(gradient_y, 2)).astype(np.uint8)
+    
     return output
 
 
@@ -54,6 +55,7 @@ def canny(image, lower_threshold, higher_threshold):
     edges = cv2.Canny(image, lower_threshold, higher_threshold)
     return edges
 
+#alfa je nastavljena med 0,5 in 2, beta pa med -100 in 100.
 def spremeni_kontrast(image, alpha, beta):
     adjusted = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
     return adjusted
@@ -62,14 +64,26 @@ def spremeni_kontrast2(image, alpha, beta):
     adjusted = np.clip(alpha * image + beta, 0, 255).astype(np.uint8)
     return adjusted
 
+def smooth(image, kernel_size=5, sigma=1):
+    return cv2.GaussianBlur(image, (kernel_size, kernel_size), sigma)
+
+
 
 imgGray2 = cv2.imread('lenna.png',0)
 cv2.namedWindow("Slika2")
 cv2.imshow("Slika2", imgGray2)
 
-imgGray=spremeni_kontrast(imgGray2,1.2,50)
+
+gauss = cv2.GaussianBlur(imgGray2,(15,15),1)
+imgGray = cv2.hconcat((imgGray2,gauss))
+
+
+#imgGray=spremeni_kontrast(imgGray2,1.2,-50)
 cv2.namedWindow("Slika")
 cv2.imshow("Slika", imgGray)
+
+
+
 
 roberts = my_roberts(imgGray)
 cv2.namedWindow("my_roberts")
